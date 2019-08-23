@@ -4,6 +4,8 @@
 
 # Get content: destination images and similar destinations
 
+The main database we will use is stored in Firestore. We will load a [reference table](airport_codes_200.csv) for 200 destinations, containing.
+
 Each destination in the database has an image and a list of similar destinations. The image is an url where theimage is hosted. 
 
 You could build this database with your own images and calculate the similarity based on users behaviour on your website, geographic proximity, themes (beach, ski, nature...) , etc. In this example we will use an already built database from [Nomadlist.com](https://nomadlist.com), a nice website with lots of info about places to visit. 
