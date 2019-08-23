@@ -12,16 +12,20 @@ for city in list(df['cityName']): # loop for every city in column 'cityName'
     url = "https://nomadlist.com/similar/" + city.lower().replace(" ","-") # create url, i.e. 'New York' ->  "https://nomadlist.com/similar/new-york"
     
     if similarDestinations(url) != []: # url is valid for that city name
-        print(city + "OK", similarDestinations(url), imageDestinations(url) )
         all_similar_array.append(similarDestinations(url)) # append array of similar destinations
         all_images_array.append(imageDestinations(url))    # append image url
         
     else:
-        print(city + "   xxxx" )
         all_similar_array.append(similarDestinations(url)) # [] empty array will be appended
-        all_images_array.append("http://logok.org/wp-content/uploads/2014/04/British-Airways-logo-ribbon-logo.png")   # default image                     
+        all_images_array.append("http://logok.org/wp-content/uploads/2014/04/British-Airways-logo-ribbon-logo.png")   # default image    
+        
+df['similar'] = all_similar_array  # add column   
+df['url'] = all_images_array       # add column   
+
+df.to_csv('<path>/airport_codes_200.csv') # save csv
     
-    
+#### Function definitions
+
 def similarDestinations(url):
     # input:    string 'https://nomadlist.com/similar/<destination>'
     # returns:  array of strings ['madrid', 'lisbon', 'paris']
@@ -38,6 +42,5 @@ def imageDestinations(url):
     soup = BeautifulSoup(response.text, "html.parser")
     image_url = "https://nomadlist.com" + soup.findAll("img", {"class": "bg-modal"})[0]['src']
     return image_url
-    ```
     
-    
+```
