@@ -4,7 +4,7 @@
 
 # Get content: destination images and similar destinations
 
-The main database we will use is stored in Firestore. We will load a [reference table](airport_codes_200.csv) for 200 destinations, containing.
+The main database we will use is stored in Firestore. We will load a [reference table](/aIrport_codes_200.csv) for 200 destinations, containing.
 
 Each destination in the database has an image and a list of similar destinations. The image is an url where theimage is hosted. 
 
