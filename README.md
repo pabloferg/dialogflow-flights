@@ -8,10 +8,9 @@ Each destination in the database has an image and a list of similar destinations
 
 You could build this database with your own images and calculate the similarity based on users behaviour on your website, geographic proximity, themes (beach, ski, nature...) , etc. In this example we will use an already built database from [Nomadlist.com](https://nomadlist.com), a nice website with lots of info about places to visit. 
 
-| Attempt | #1 | #2 | #3 | #4 | #5 | #6 | #7 | #8 | #9 | #10 | #11 | #12 |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Seconds | 301 | 283 | 290 | 286 | 289 | 285 | 287 | 287 | 272 | 276 | 269 | 254 |
-
+| airportCode | airportName | cityName | countryName | similar | url | 
+| :---: | :---: | :---: | :---: | :---: | :---: | 
+| Seconds | 301 | 283 | 290 | 286 | 289 |
 
 ```python
 
