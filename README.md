@@ -1,5 +1,10 @@
 # dialogflow-flights
 
+
+![Screenshot](examples.png)
+
+
+
 ![Screenshot](timecomparison.png)
 
 # Get content: destination images and similar destinations
