@@ -1,5 +1,6 @@
 # dialogflow-flights
 
+![Screenshot](speechexamples.png)
 
 ![Screenshot](examples.png)
 
