@@ -1,4 +1,19 @@
-# dialogflow-flights
+# Voice FLight Searcher: Dialogflow + Google Cloud + Amadeus API
+
+## Content
+
+The objective of this project is to get User's **queries about flight fares to destinations** using Dialogflow, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the user. 
+
+For the sake of simplicity, at the moment it only works for routes operated by British Airways from Heathrow Airport and one adult. Changing this is as easy as modify some values in the API call.
+
+First, make sure you understand the basics of Dialogflow: you can start [here](https://dialogflow.com/docs/getting-started).
+
+For this example we just create one Agent and one Intent (`requestFlightFare`).
+
+Make sure you enable Webhook calls for the Intent.
+
+
+
 
 ![Screenshot](speechexamples.png)
 
