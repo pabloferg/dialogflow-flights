@@ -2,6 +2,9 @@
 
 ## Content
 
+- [Destination images and similar destinations Suggestion Chips](#Destination-images-and-similar-destinations-suggestion-chips)
+
+
 The objective of this project is to get User's **queries about flight fares to destinations** using Dialogflow, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the user. 
 
 For the sake of simplicity, at the moment it only works for routes operated by British Airways from Heathrow Airport and one adult. Changing this is as easy as modify some values in the API call.
@@ -23,18 +26,13 @@ Make sure you enable Webhook calls for the Intent.
 
 ![Screenshot](timecomparison.png)
 
-# Get content: destination images and similar destinations
+## Destination images and similar destinations Suggestion Chips
 
 The main database we will use is stored in Firestore. We will load a [reference table](/aIrport_codes_200.csv) for 200 destinations, containing.
 
 Each destination in the database has an image and a list of similar destinations. The image is an url where theimage is hosted. 
 
 You could build this database with your own images and calculate the similarity based on users behaviour on your website, geographic proximity, themes (beach, ski, nature...) , etc. In this example we will use an already built database from [Nomadlist.com](https://nomadlist.com), a nice website with lots of info about places to visit. 
-
-| airportCode | airportName | cityName | countryName | similar | url | 
-| :---: | :---: | :---: | :---: | :---: | :---: | 
-| Seconds | 301 | 283 | 290 | 286 | 289 |
-
 
 ![Screenshot](scrapper.png)
 
@@ -79,3 +77,5 @@ def imageDestinations(url):
     return image_url
     
 ```
+
+## 
