@@ -82,4 +82,18 @@ def imageDestinations(url):
 
 ![Screenshot](mainflow.png)
 
+I create the script localy and then deploy it using the terminal command `gcloud functions deploy <folder>`
 
+
+There are two pieces of code in the Fulfillment section in Dialogflow Console:
+- [index_dialogflow.js ](index_dialogflow.js)
+- [package.json](package.json) : here we just add `"axios": "0.18.0"` to use axios package
+
+Make sure you enable webhook calls for your Intent.
+
+You can find the full code in [index_dialogflow.js](index_dialogflow.js).
+
+Let's break down the code. We can reuse most of the code given by Dialogflow (thanks!). In the first section, we will just add the `const axios =...` to use the package:
+
+
+![Screenshot](context.png)
