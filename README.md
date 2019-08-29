@@ -104,6 +104,8 @@ Let's break down the code. We can reuse most of the code given by Dialogflow (th
 
 ## Code
 
+![Screenshot](flow.png)
+
 ```javascript
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const functions = require('firebase-functions');
