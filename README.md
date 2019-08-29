@@ -96,7 +96,7 @@ You can find the full code in [index_dialogflow.js](index_dialogflow.js).
 Let's break down the code. We can reuse most of the code given by Dialogflow (thanks!). In the first section, we will just add the `const axios =...` to use the package:
 
 
-![Screenshot](context.png)
+![Screenshot](contextdiagram.png)
 
 
 
@@ -151,7 +151,7 @@ First, using a `POST` request we get the `access_token`. Then, with a `GET` requ
  "max":"1"}
 ```
  
-
+#### Authentication
 ```javascript
 // Amadeus Authentication
 function post_Amadeus_Auth_Object() {
@@ -183,6 +183,8 @@ function post_Amadeus_Auth_Object() {
 
 Here you can see an example of [Amadeus API response](#amadeus-response-example)
 
+#### GET
+
 ```javascript
 // Amadeus GET API call
 function get_Amadeus_Response(access_token, payload_dict) {
@@ -209,5 +211,77 @@ function get_Amadeus_Response(access_token, payload_dict) {
     }).catch(err => {                                    
         return console.log(`Error connecting to Amadeus: ${err}`);        
     })
+}
+```
+
+#### Create Payload
+
+```javascript
+// Create payload dictionaries for Amadeus API request and ba.com url.
+function payload(origin,destination,departureDate,returnDate,adults='1',includeAirlines='BA',nonStop='true',max='1') {
+    // Returns two dictionaries:
+    // 1. Amadeus GET payload and 2. Variables to create ba.com URL.
+    // Inputs:
+    //     origin:         string     any IATA airport code -> MAD, YVR, TXL... *This version only allows 'LHR' as origin.
+    //     destination:    string     any IATA airport code -> MAD, YVR, TXL...
+    //     departureDate:  string    'YYYY-MM-DD'
+    //     returnDate:     string    'YYYY-MM-DD'
+    //     adults:         string    greater than 0, '1', '2'...
+    //     includeAirlines string    IATA airline code -> 'BA', 'IB', 'AA'... *This version only allows 'BA' British Airways
+    //     nonStop         string    'true' to get only Direct itineraries; 'false' otherwise *For simplicity, this version only takes Direct itineraries
+    //     max             string    ['1' - '250'] Maximum number of flight offers to return.
+    //
+    //    Full Reference: https://developers.amadeus.com/self-service/category/air/api-doc/flight-low-fare-search/api-reference
+
+    // one-way or return. In this version, we always set a return date.
+    let journeyType = (returnDate) ? 'RTFLT' : 'OWFLT';
+
+    let payload_amadeus_dict = { origin: origin,
+        destination: destination,
+        departureDate: departureDate,
+        adults: adults,
+        includeAirlines: includeAirlines,
+        nonStop: nonStop,
+        max: max };
+
+    // For the url, we use outbound/inbound variable names because these is the format for ba.com URL.
+    let payload_url_dict = { origin: origin,
+        destination: destination,
+        outboundDate: departureDate,
+        adultCount: adults,
+        youngAdultCount: "0",
+        childCount: "0",
+        infantCount: "0",
+        cabin:'M',
+        ticketFlexibility:'LOWEST',
+        journeyType: journeyType,
+        source: 'false' };
+    // add dictionary keys if values are provided
+    if (returnDate) payload_amadeus_dict["returnDate"] = returnDate;
+    if (returnDate) payload_url_dict["inboundDate"] = returnDate;
+
+    return [payload_amadeus_dict, payload_url_dict];
+}
+```
+
+#### britiwshairways.com url
+
+```javascript
+// Create ba.com url to direct user to result list
+function urlBA(payload_url_dict) {
+    // Returns ba.com url from a dictionary created using payload() function:
+    //         origin: origin,
+    //         destination: destination,
+    //         outboundDate: departureDate,
+    //         adultCount: adults,
+    //         etc...
+
+    let url = "https://www.britishairways.com/travel/booking/public/en_gb/#/flightList?"
+
+
+    for (const [key, value] of Object.entries(payload_url_dict)) {
+        url = url.concat([key, value].join('='),'&');
+    };
+    return url;
 }
 ```
