@@ -34,7 +34,7 @@ First, make sure you understand the basics of Dialogflow: you can start [here](h
 
 Make sure you enable Webhook calls for the Intent. In this example we create two follow-up intentes directly from Dialogflow console (not fulfullment) that simulate the User asking *'Hey, email me this info'* or *'Please book me in this flight'*.
 
-Find some screenshots in the [appendix](#appendix-2:-Dialogflow-screenshots)
+Find some screenshots in the [appendix](#appendix:-dialogflow-screenshots)
 
 We use context to carry information from consecutive interactions:
 
@@ -642,7 +642,7 @@ exports.flights = functions.https.onRequest((request,response) =>{
 
 
 
-## Appendix 1: Destination images and similar destinations Suggestion Chips
+## Appendix: Destination images and similar destinations Suggestion Chips
 
 The main database we will use is stored in Firestore. We will load a [reference table](/aIrport_codes_200.csv) for 200 destinations, containing.
 
@@ -694,7 +694,7 @@ def imageDestinations(url):
 
 ```
 
-## Appendix 2: Dialogflow screenshots
+## Appendix: Dialogflow screenshots
 
 ![Screenshot](dialogflowparameters.png)
 ![Screenshot](dialogflow1.png)
