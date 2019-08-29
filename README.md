@@ -6,7 +6,7 @@
 - [Overview](#overview)
 - [Dialogflow setup](#dialogflow-setup)
 - [High Level diagram](#high-level-diagram)
-- [Code description](#index.js-description)
+- [Code description](#code-description)
 - [Appendix: Destination images and similar destinations Suggestion Chips](#appendix-destination-images-and-similar-destinations-suggestion-chips)
 
 
@@ -58,7 +58,7 @@ There are two files:
 - [package.json](package.json)
 
 
-## `index.js` description
+## Code description
 
 You can find the full code in [index.js](index.js).
 
