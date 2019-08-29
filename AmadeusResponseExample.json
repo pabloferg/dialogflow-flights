@@ -1,0 +1,83 @@
+{
+  "data": [
+    {
+      "type": "flight-offer",
+      "id": "1560347341084--1307634387",
+      "offerItems": [
+        {
+          "services": [
+            {
+              "segments": [
+                {
+                  "flightSegment": {
+                    "departure": {
+                      "iataCode": "LHR",
+                      "terminal": "5",
+                      "at": "2019-07-01T16:45:00+01:00"
+                    },
+                    "arrival": {
+                      "iataCode": "MAD",
+                      "terminal": "4S",
+                      "at": "2019-07-01T20:10:00+02:00"
+                    },
+                    "carrierCode": "BA",
+                    "number": "464",
+                    "aircraft": {
+                      "code": "32A"
+                    },
+                    "operating": {
+                      "carrierCode": "BA",
+                      "number": "464"
+                    },
+                    "duration": "0DT2H25M"
+                  },
+                  "pricingDetailPerAdult": {
+                    "travelClass": "ECONOMY",
+                    "fareClass": "O",
+                    "availability": 5,
+                    "fareBasis": "OHZ0SO"
+                  }
+                }
+              ]
+            }
+          ],
+          "price": {
+            "total": "119.91",
+            "totalTaxes": "37.91"
+          },
+          "pricePerAdult": {
+            "total": "119.91",
+            "totalTaxes": "37.91"
+          }
+        }
+      ]
+    }
+  ],
+  "dictionaries": {
+    "carriers": {
+      "BA": "BRITISH AIRWAYS"
+    },
+    "currencies": {
+      "EUR": "EURO"
+    },
+    "aircraft": {
+      "32A": "AIRBUS INDUSTRIE A320 SHARKLETS"
+    },
+    "locations": {
+      "MAD": {
+        "subType": "AIRPORT",
+        "detailedName": "ADOLFO SUAREZ BARAJAS"
+      },
+      "LHR": {
+        "subType": "AIRPORT",
+        "detailedName": "HEATHROW"
+      }
+    }
+  },
+  "meta": {
+    "links": {
+      "self": "https://test.api.amadeus.com/v1/shopping/flight-offers?origin=LHR&destination=MAD&departureDate=2019-07-01&adults=1&nonStop=true&max=1"
+    },
+    "currency": "EUR"
+  }
+}
