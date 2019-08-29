@@ -1,4 +1,4 @@
-# Voice Flight Searcher
+# Flight Fare Finder - Google Assistant
 
 ![Screenshot](inspiration.png)
 
