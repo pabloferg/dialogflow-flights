@@ -20,7 +20,7 @@ This way of getting travel inspiration has many benefits in terms of **accessibi
 
 ![Screenshot](timecomparison.png)
 
-Thanks to Dialogflow, this application could work as well in other languages. We would just need to provide more training sentences, and then translate some parameters using Google Translation API (i.e A Spanish user says: *Quiero volar a París en Diciembre durante dos días*, the agent would pick `destination=París` and `duration=días`, we would need to translate to `Paris` and `days` (or change the code).
+Thanks to Dialogflow, this application could work as well in **other languages**. We would just need to provide more training sentences, and then translate some parameters using Google Translation API (i.e A Spanish user says: *Quiero volar a París en Diciembre durante dos días*, the agent would pick `destination=París` and `duration=días`, we would need to translate to `Paris` and `days` (or change the code).
 
 For the sake of simplicity, at the moment it only works for routes operated by British Airways from Heathrow Airport and for one passenger. Changing this is as easy as modify some values in the API call.
 
