@@ -198,9 +198,7 @@ function get_Amadeus_Response(access_token, payload_dict) {
             url: 'https://test.api.amadeus.com/v1/shopping/flight-offers',
             qs: payload_dict,
             headers:
-                { 'Postman-Token': '9b82711b-6844-43fd-a000-f49cd4549d5d',
-                    'cache-control': 'no-cache',
-                    Authorization: 'Bearer ' + access_token } };
+                { Authorization: 'Bearer ' + access_token } };
 
         request(options, function (error, response, body) {
             if(!error)
@@ -208,8 +206,8 @@ function get_Amadeus_Response(access_token, payload_dict) {
         })
     }).then(value => {
         return value;
-    }).catch(err => {                                    //new line
-        return console.log(`Error connecting to Amadeus: ${err}`);        //new line
+    }).catch(err => {                                    
+        return console.log(`Error connecting to Amadeus: ${err}`);        
     })
 }
 ```
