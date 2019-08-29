@@ -49,7 +49,7 @@ We use context to carry information between consecutive interactions:
 ## High Level diagram
 (Pending)
 
-![Screenshot](mainflow.png)
+![Screenshot](highflow.png)
 
 I develop the script localy on my machine and then [deploy](https://cloud.google.com/functions/docs/deploying/filesystem) it using the terminal command `gcloud functions deploy <folder>`
 
