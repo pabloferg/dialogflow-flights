@@ -1,4 +1,4 @@
-# Voice FLight Searcher: Dialogflow + Google Cloud + Amadeus API
+# Voice Flight Searcher: Dialogflow + Google Cloud + Amadeus API
 
 ## Content
 
@@ -86,7 +86,7 @@ I create the script localy and then deploy it using the terminal command `gcloud
 
 
 There are two pieces of code in the Fulfillment section in Dialogflow Console:
-- [index_dialogflow.js ](index_dialogflow.js)
+- [index.js ](index.js)
 - [package.json](package.json) : here we just add `"axios": "0.18.0"` to use axios package
 
 Make sure you enable webhook calls for your Intent.
@@ -97,3 +97,17 @@ Let's break down the code. We can reuse most of the code given by Dialogflow (th
 
 
 ![Screenshot](context.png)
+
+Welcome and Fallback functions. In both cases, we want the user to get some [Suggestion Chips](https://developers.google.com/actions/assistant/responses) to give some inspiration.
+```javascript
+function welcome(agent) {
+    agent.add(`Hi, where do you want to fly to?`);
+    defaultSuggestions(agent) // Inspire the User - show some suggested destinations
+}
+function fallback(agent) {
+    agent.add(`I'm sorry, can you try again?`);
+    defaultSuggestions(agent) // Inspire the User - show some suggested destinations
+}
+```
+
+
