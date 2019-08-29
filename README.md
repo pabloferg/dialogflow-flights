@@ -648,13 +648,17 @@ exports.flights = functions.https.onRequest((request,response) =>{
 
 ## Appendix: Destination images and similar destinations Suggestion Chips
 
-The main database we will use is stored in Firestore. We will load a [reference table](/aIrport_codes_200.csv) for 200 destinations, containing.
+The main database we will use is stored in Firestore. We will load a [reference table](/aIrport_codes_200.csv) for 200 destinations.
 
-Each destination in the database has an image and a list of similar destinations. The image is an url where theimage is hosted. 
+Each destination in the database has an **image url** and a list of **similar destinations**.
 
 You could build this database with your own images and calculate the similarity based on users behaviour on your website, geographic proximity, themes (beach, ski, nature...) , etc. In this example we will use an already built database from [Nomadlist.com](https://nomadlist.com), a nice website with lots of info about places to visit. 
 
+(Pending: add more explanation)
+
 ![Screenshot](scrapper.png)
+
+The following is python code.
 
 ```python
 
@@ -697,6 +701,35 @@ def imageDestinations(url):
     return image_url
 
 ```
+
+Create FIrestore database from .csv file:
+
+```python
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+# Use a service account
+cred = credentials.Certificate('<path to certificate>')
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+
+df = pd.read_csv('/<path>/airport_codes_200.csv')
+
+# loop through each row in the pandas dataframe and create new document in Firestore
+for index, row in df.iterrows():
+    
+    doc_ref = db.collection('destinations').document(row['cityName'].lower()) # document name = cityName
+    # add document content
+    doc_ref.set({
+        'airportCode'        :  row['airportCode'],
+        'airportName'        :  row['airportName'],
+        'countryName'        :  row['countryName'],
+        'cityName'           :  row['cityName'],
+        'similar'            :  row['similar'].replace("[","").replace("]","").replace("'","").split(', '), # process string so that Firestore stores it as a list
+        'url'                :  row['url']    })
+
+```
+
 
 ## Appendix: Dialogflow screenshots
 
