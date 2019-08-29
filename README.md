@@ -7,17 +7,20 @@
 - [Destination images and similar destinations Suggestion Chips](#appendix-destination-images-and-similar-destinations-suggestion-chips)
 - [Dialogflow setup](#dialogflow-setup)
 - [High Level diagram](#high-level-diagram)
+- [Code description](#index.js-description)
 
 
 ## Overview
 
 The aim of this project is to get User's **queries about flight fares to destinations** using Google Assistant, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the user. 
 
-The User can interact with the assistant via voice,keyboard or touching the device screen.
+The User can interact with the assistant via **voice**,**keyboard** or **touching** the device screen.
 
 This way of getting travel inspiration has many benefits in terms of **accessibility** compared to traditional booking tools offered by the airlines websites. In addition, this new channel is much faster.
 
 ![Screenshot](timecomparison.png)
+
+Thanks to Dialogflow, this application could work as well in other languages. We would just need to provide more training sentences, and then translate some parameters using Google Translation API (i.e A Spanish user says: *Quiero volar a París en Diciembre durante dos días*, the agent would pick `destination=París` and `duration=días`, we would need to translate to `Paris` and `days` (or change the code).
 
 For the sake of simplicity, at the moment it only works for routes operated by British Airways from Heathrow Airport and for one passenger. Changing this is as easy as modify some values in the API call.
 
@@ -93,7 +96,7 @@ We define some helper functions before the main one:
 - readFirestoreDatabase(agent,key)
 - durationHandler(duration)
 - defaultSuggestions(agent)
-- [MAIN](#cloud-function 
+- [MAIN](#cloud-function)
 
 #### Welcome and Fallback functions.
 
@@ -337,7 +340,7 @@ function defaultSuggestions(agent) {
 }
 ```
 
-### Cloud Function
+#### Cloud Function
 
 ```javascript
 // **** Cloud Function ****
