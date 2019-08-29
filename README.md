@@ -22,7 +22,7 @@ Make sure you enable Webhook calls for the Intent.
 
 ![Screenshot](speechexamples.png)
 
-![Screenshot](examples.png)
+![Screenshot](simulator.png)
 
 
 
