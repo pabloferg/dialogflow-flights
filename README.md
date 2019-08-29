@@ -98,7 +98,31 @@ Let's break down the code. We can reuse most of the code given by Dialogflow (th
 
 ![Screenshot](context.png)
 
+
+
+## Code
+
+```
+// The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
+const functions = require('firebase-functions');
+// The Firebase Admin SDK to access the Firebase Realtime Database.
+const admin = require('firebase-admin');
+// Import the dialogflow class
+const {WebhookClient} = require('dialogflow-fulfillment');
+
+const { Card, Suggestion } = require('dialogflow-fulfillment');
+//const { Carousel } = require('actions-on-google');
+
+
+process.env.DEBUG = 'dialogflow:*'; // enables lib debugging statements
+
+// initialize Firebase
+admin.initializeApp(functions.config().firebase);
+admin.firestore().settings({timestampsInSnapshots: true})
+```
+
 Welcome and Fallback functions. In both cases, we want the user to get some [Suggestion Chips](https://developers.google.com/actions/assistant/responses) to give some inspiration.
+
 ```javascript
 function welcome(agent) {
     agent.add(`Hi, where do you want to fly to?`);
