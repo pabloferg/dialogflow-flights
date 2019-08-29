@@ -62,6 +62,7 @@ You can find the full code in [index.js](index.js).
 
 ![Screenshot](flow.png)
 
+The beginning of the file has all the imports needed. We take this code mainly from Google's documentation.
 
 ```javascript
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
@@ -74,13 +75,25 @@ const {WebhookClient} = require('dialogflow-fulfillment');
 const { Card, Suggestion } = require('dialogflow-fulfillment');
 //const { Carousel } = require('actions-on-google');
 
-
 process.env.DEBUG = 'dialogflow:*'; // enables lib debugging statements
 
 // initialize Firebase
 admin.initializeApp(functions.config().firebase);
 admin.firestore().settings({timestampsInSnapshots: true})
 ```
+
+We define some helper functions before the main one:
+
+- welcome(agent)
+- fallback(agent)
+- post_Amadeus_Auth_Object()
+- get_Amadeus_Response(access_token, payload_dict)
+- payload(origin,destination,departureDate,returnDate,...)
+- urlBA(payload_url_dict)
+- readFirestoreDatabase(agent,key)
+- durationHandler(duration)
+- defaultSuggestions(agent)
+- [MAIN](#cloud-function 
 
 #### Welcome and Fallback functions.
 
@@ -98,24 +111,13 @@ function fallback(agent) {
 }
 ```
 
-
-### Amadeus API
-
-The Amadeus API has a standard POST/GET interaction, you can read more about it [here](https://developers.amadeus.com/self-service/category/air/api-doc/flight-low-fare-search/api-reference).
+The Amadeus API has a standard POST/GET interaction, you can read more about it [here](https://developers.amadeus.com/self-service/category/air/api-doc/flight-low-fare-search/api-reference). You will need to create a test account to get your `client_id` and `client_secret`.
 
 First, using a `POST` request we get the `access_token`. Then, with a `GET` request we ask for the json file containing flights and fares. 
 
-```json
-{"origin":"LHR",
- "destination": airport_code,
- "departureDate":"2019-07-01",
- "adults":"1",
- "includeAirlines":"BA",
- "nonStop":"false",
- "max":"1"}
-```
+Here you can see an example of [Amadeus API response](#amadeus-response-example)
  
-#### Authentication
+#### Amadeus Authentication
 ```javascript
 // Amadeus Authentication
 function post_Amadeus_Auth_Object() {
@@ -125,13 +127,11 @@ function post_Amadeus_Auth_Object() {
         var options = { method: 'POST',
             url: 'https://test.api.amadeus.com/v1/security/oauth2/token',
             headers:
-                { 'Postman-Token': 'e91ea306-3b1d-4408-9321-ec2f6af5f59e',
-                    'cache-control': 'no-cache',
-                    'Content-Type': 'application/x-www-form-urlencoded' },
+                { 'Content-Type': 'application/x-www-form-urlencoded' },
             form:
                 { grant_type: 'client_credentials',
-                    client_id: 'gHea0Lv9FKuZmoDAsKblP4KmU3YcLGu6',
-                    client_secret: 'M6cweU8QmCb7XhNR' } };
+                    client_id: 'XXXXXXXXXXXXXXXXX',
+                    client_secret: 'XXXXXXXXXXXXXXXXX' } };
 
         request(options, function (error, response, body) {
             if(!error)
@@ -145,9 +145,7 @@ function post_Amadeus_Auth_Object() {
 }
 ```
 
-Here you can see an example of [Amadeus API response](#amadeus-response-example)
-
-#### GET
+#### Amadeus API GET
 
 ```javascript
 // Amadeus GET API call
@@ -178,7 +176,7 @@ function get_Amadeus_Response(access_token, payload_dict) {
 }
 ```
 
-#### Create Payload
+#### Create Payloads
 
 ```javascript
 // Create payload dictionaries for Amadeus API request and ba.com url.
@@ -254,6 +252,7 @@ function urlBA(payload_url_dict) {
 
 
 #### Read Firestore database
+(Pending: add explanation)
 
 ```javascript
 function readFirestoreDatabase(agent,key) {
