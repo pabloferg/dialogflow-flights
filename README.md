@@ -4,7 +4,7 @@
 
 ## Content
 
-- [Destination images and similar destinations Suggestion Chips](#Destination-images-and-similar-destinations-suggestion-chips)
+- [Destination images and similar destinations Suggestion Chips](#Appendix:-Destination-images-and-similar-destinations-suggestion-chips)
 
 
 The objective of this project is to get User's **queries about flight fares to destinations** using Dialogflow, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the user. 
@@ -28,57 +28,6 @@ Make sure you enable Webhook calls for the Intent.
 
 ![Screenshot](timecomparison.png)
 
-## Destination images and similar destinations Suggestion Chips
-
-The main database we will use is stored in Firestore. We will load a [reference table](/aIrport_codes_200.csv) for 200 destinations, containing.
-
-Each destination in the database has an image and a list of similar destinations. The image is an url where theimage is hosted. 
-
-You could build this database with your own images and calculate the similarity based on users behaviour on your website, geographic proximity, themes (beach, ski, nature...) , etc. In this example we will use an already built database from [Nomadlist.com](https://nomadlist.com), a nice website with lots of info about places to visit. 
-
-![Screenshot](scrapper.png)
-
-```python
-
-all_similar_array = []
-all_images_array  = []
-
-for city in list(df['cityName']): # loop for every city in column 'cityName'
-    url = "https://nomadlist.com/similar/" + city.lower().replace(" ","-") # create url, i.e. 'New York' ->  "https://nomadlist.com/similar/new-york"
-    
-    if similarDestinations(url) != []: # url is valid for that city name
-        all_similar_array.append(similarDestinations(url)) # append array of similar destinations
-        all_images_array.append(imageDestinations(url))    # append image url
-        
-    else:
-        all_similar_array.append(similarDestinations(url)) # [] empty array will be appended
-        all_images_array.append("http://logok.org/wp-content/uploads/2014/04/British-Airways-logo-ribbon-logo.png")   # default image    
-        
-df['similar'] = all_similar_array  # add column   
-df['url'] = all_images_array       # add column   
-
-df.to_csv('<path>/airport_codes_200.csv') # save csv
-    
-#### Function definitions
-
-def similarDestinations(url):
-    # input:    string 'https://nomadlist.com/similar/<destination>'
-    # returns:  array of strings ['madrid', 'lisbon', 'paris']
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, "html.parser")
-    s = ''.join(str(tag) for tag in soup.findAll("h3", {"class": "itemName"}))
-    similar_destinations_array = re.findall(r'href="/(.*?)"', s)
-    return similar_destinations_array
-
-def imageDestinations(url):
-    # input:    string 'https://nomadlist.com/similar/<destination>'
-    # returns:  string 'https://nomadlist.com/assets/img/cities/abu-dhabi-united-arab-emirates-500px.jpg'
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, "html.parser")
-    image_url = "https://nomadlist.com" + soup.findAll("img", {"class": "bg-modal"})[0]['src']
-    return image_url
-    
-```
 
 ## Overview
 
@@ -104,8 +53,6 @@ Let's break down the code. We can reuse most of the code given by Dialogflow (th
 
 ## Code
 
-![Screenshot](flow.png)
-
 ```javascript
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const functions = require('firebase-functions');
@@ -125,7 +72,10 @@ admin.initializeApp(functions.config().firebase);
 admin.firestore().settings({timestampsInSnapshots: true})
 ```
 
-Welcome and Fallback functions. In both cases, we want the user to get some [Suggestion Chips](https://developers.google.com/actions/assistant/responses) to give some inspiration.
+#### Welcome and Fallback functions.
+
+Welcome Intent: triggered when the user starts the conversation.
+Fallback Intent: triggered when the Agent can't match the query with any Intent.In both cases, we want the user to get some [Suggestion Chips](https://developers.google.com/actions/assistant/responses) to give some inspiration.
 
 ```javascript
 function welcome(agent) {
@@ -675,4 +625,61 @@ exports.flights = functions.https.onRequest((request,response) =>{
     
     agent.handleRequest(intentMap);
 });
+```
+
+
+
+
+
+
+## Appendix: Destination images and similar destinations Suggestion Chips
+
+The main database we will use is stored in Firestore. We will load a [reference table](/aIrport_codes_200.csv) for 200 destinations, containing.
+
+Each destination in the database has an image and a list of similar destinations. The image is an url where theimage is hosted. 
+
+You could build this database with your own images and calculate the similarity based on users behaviour on your website, geographic proximity, themes (beach, ski, nature...) , etc. In this example we will use an already built database from [Nomadlist.com](https://nomadlist.com), a nice website with lots of info about places to visit. 
+
+![Screenshot](scrapper.png)
+
+```python
+
+all_similar_array = []
+all_images_array  = []
+
+for city in list(df['cityName']): # loop for every city in column 'cityName'
+    url = "https://nomadlist.com/similar/" + city.lower().replace(" ","-") # create url, i.e. 'New York' ->  "https://nomadlist.com/similar/new-york"
+    
+    if similarDestinations(url) != []: # url is valid for that city name
+        all_similar_array.append(similarDestinations(url)) # append array of similar destinations
+        all_images_array.append(imageDestinations(url))    # append image url
+        
+    else:
+        all_similar_array.append(similarDestinations(url)) # [] empty array will be appended
+        all_images_array.append("http://logok.org/wp-content/uploads/2014/04/British-Airways-logo-ribbon-logo.png")   # default image    
+        
+df['similar'] = all_similar_array  # add column   
+df['url'] = all_images_array       # add column   
+
+df.to_csv('<path>/airport_codes_200.csv') # save csv
+    
+#### Function definitions
+
+def similarDestinations(url):
+    # input:    string 'https://nomadlist.com/similar/<destination>'
+    # returns:  array of strings ['madrid', 'lisbon', 'paris']
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
+    s = ''.join(str(tag) for tag in soup.findAll("h3", {"class": "itemName"}))
+    similar_destinations_array = re.findall(r'href="/(.*?)"', s)
+    return similar_destinations_array
+
+def imageDestinations(url):
+    # input:    string 'https://nomadlist.com/similar/<destination>'
+    # returns:  string 'https://nomadlist.com/assets/img/cities/abu-dhabi-united-arab-emirates-500px.jpg'
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
+    image_url = "https://nomadlist.com" + soup.findAll("img", {"class": "bg-modal"})[0]['src']
+    return image_url
+    
 ```
