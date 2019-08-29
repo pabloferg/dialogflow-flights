@@ -4,10 +4,10 @@
 
 ## Content
 
-- [Destination images and similar destinations Suggestion Chips](#Appendix\:-Destination-images-and-similar-destinations-suggestion-chips)
+- [Destination images and similar destinations Suggestion Chips](#appendix:-destination-images-and-similar-destinations-suggestion-chips)
 
 
-The objective of this project is to get User's **queries about flight fares to destinations** using Dialogflow, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the user. 
+The aim of this project is to get User's **queries about flight fares to destinations** using Dialogflow, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the user. 
 
 For the sake of simplicity, at the moment it only works for routes operated by British Airways from Heathrow Airport and one adult. Changing this is as easy as modify some values in the API call.
 
