@@ -6,6 +6,7 @@
 - [Overview](#overview)
 - [Destination images and similar destinations Suggestion Chips](#appendix-destination-images-and-similar-destinations-suggestion-chips)
 - [Dialogflow setup](dialogflow-setup)
+- [High Level diagram](#high-level-diagram)
 
 
 ## Overview
@@ -31,7 +32,7 @@ Some examples:
 
 First, make sure you understand the basics of Dialogflow: you can start [here](https://cloud.google.com/dialogflow/docs/).
 
-Make sure you enable Webhook calls for the Intent.
+Make sure you enable Webhook calls for the Intent. In this example we create two follow-up intentes directly from Dialogflow console (not fulfullment) that simulate the User asking *'Hey, email me this info'* or *'Please book me in this flight'*.
 
 Find some screenshots in the [appendix](#appendix-2:-Dialogflow-screenshots)
 
