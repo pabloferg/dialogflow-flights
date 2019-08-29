@@ -266,6 +266,8 @@ function payload(origin,destination,departureDate,returnDate,adults='1',includeA
 
 #### britiwshairways.com url
 
+In the Card Response, we will add a 'Book' botton that will take the User to the Flight List page in the airline page. In this example we use British Airways website. 
+
 ```javascript
 // Create ba.com url to direct user to result list
 function urlBA(payload_url_dict) {
@@ -285,3 +287,79 @@ function urlBA(payload_url_dict) {
     return url;
 }
 ```
+
+
+#### Read Firestore database
+
+```javascript
+function readFirestoreDatabase(agent,key) {
+    // Returns value for input key
+    //
+    // Input:
+    //    agent : dialogflow object
+    //    key   : string -> 'airportCode', 'airportName', 'countryName', 'similar', 'url'
+
+    // Initialise Firestore
+    const db = admin.firestore();
+    // Firebase is organised in Collections and Documents, https://firebase.google.com/docs/firestore
+    // collection: 'destinations'
+    // |_______ documents:
+    //     |_____________ 'amsterdam'  :  { airportCode: 'AMS',
+    //                                      airportName: 'Amsterdam',
+    //                                      cityName:    'Amsterdam',
+    //                                      countryName: 'Netherlands',
+    //                                      similar: ['berlin', 'paris', brussels',...]
+    //                                      url: 'http://...'}
+    //     |_____________ 'abu dhabi' : ...
+    //     |_____________ 'berlin'    : ...
+    //     |_____________ 'cancun'    : ...
+
+    // destination will be the document name that we will open
+    let destination = agent.parameters.destination; //
+
+
+    const documentLocation = db.collection('destinations').doc(destination.toLowerCase());
+
+    return documentLocation.get()
+        .then(doc => {
+            if (!doc.exists) { // if destination does not exist in database
+                console.log(`document ${destination.toLowerCase()} not in database. Please try another destination.`); // Using Dialogflow, we set destination as required, so we make sure that the users specifies a destination. However, that destination may not exist in the database.
+            } else { // if destination exists in the database
+                if (key === "airportCode") {
+                    return doc.data().airportCode;
+                } else if (key === "similar") {
+                    return doc.data().similar;
+                } else if (key === "url") {
+                    return doc.data().url;
+                } else {
+                    console.log(`key ${key} not implemented yet`)
+                };
+            }
+        }).catch(() => {
+            console.log(`error reading database`);
+        });
+}
+```
+
+
+#### Convert  duration into Number Of Days.
+
+```javascript
+function durationHandler(duration) { // Converts duration (days, weeks...) into number of days. duration is and Object from Dialogflow.
+    if (duration.unit === "day") {
+        durationDays = duration.amount;
+    } else if (duration.unit === "wk") { // weeks
+        durationDays = duration.amount * 7 ;
+    } else if (duration.unit === "mo") { // months
+        durationDays = duration.amount / 30 ;
+    } else if (duration.unit === "h") { // hours
+        durationDays = duration.amount / 24;
+    } else if (duration.unit === "min") { // minutes
+        durationDays = duration.amount / 1440 ;
+    } else if (duration.unit === "s") { // seconds
+        durationDays = duration.amount / 86400 ;
+    }
+    return durationDays
+}
+```
+
