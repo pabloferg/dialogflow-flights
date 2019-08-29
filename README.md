@@ -7,6 +7,12 @@
 - [Destination images and similar destinations Suggestion Chips](#appendix-destination-images-and-similar-destinations-suggestion-chips)
 
 
+
+
+
+
+## Overview
+
 The aim of this project is to get User's **queries about flight fares to destinations** using Dialogflow, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the user. 
 
 For the sake of simplicity, at the moment it only works for routes operated by British Airways from Heathrow Airport and one adult. Changing this is as easy as modify some values in the API call.
@@ -18,27 +24,22 @@ For this example we just create one Agent and one Intent (`requestFlightFare`).
 Make sure you enable Webhook calls for the Intent.
 
 
-
-
 ![Screenshot](speechexamples.png)
 
 ![Screenshot](simulator.png)
 
-
-
 ![Screenshot](timecomparison.png)
 
-
-## Overview
+## High Level diagram
 
 ![Screenshot](mainflow.png)
 
 I create the script localy and then deploy it using the terminal command `gcloud functions deploy <folder>`
 
 
-There are two pieces of code in the Fulfillment section in Dialogflow Console:
+There are two pieces of code for the Cloud Function:
 - [index.js ](index.js)
-- [package.json](package.json) : here we just add `"axios": "0.18.0"` to use axios package
+- [package.json](package.json)
 
 Make sure you enable webhook calls for your Intent.
 
