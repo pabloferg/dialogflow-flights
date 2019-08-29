@@ -7,28 +7,36 @@
 - [Destination images and similar destinations Suggestion Chips](#appendix-destination-images-and-similar-destinations-suggestion-chips)
 
 
-
-
-
-
 ## Overview
 
-The aim of this project is to get User's **queries about flight fares to destinations** using Dialogflow, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the user. 
+The aim of this project is to get User's **queries about flight fares to destinations** using Google Assistant, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the user. 
 
-For the sake of simplicity, at the moment it only works for routes operated by British Airways from Heathrow Airport and one adult. Changing this is as easy as modify some values in the API call.
+The User can interact with the assistant via voice,keyboard or touching the device screen.
+
+This way of getting travel inspiration has many benefits in terms of **accessibility** compared to traditional booking tools offered by the airlines websites. In addition, this new channel is much faster.
+
+![Screenshot](timecomparison.png)
+
+For the sake of simplicity, at the moment it only works for routes operated by British Airways from Heathrow Airport and for one passenger. Changing this is as easy as modify some values in the API call.
+
+## Dialogflow setup
 
 First, make sure you understand the basics of Dialogflow: you can start [here](https://dialogflow.com/docs/getting-started).
 
-For this example we just create one Agent and one Intent (`requestFlightFare`).
-
 Make sure you enable Webhook calls for the Intent.
 
+![Screenshot](dialogflowparameters.png)
+![Screenshot](dialogflow1.png)
+![Screenshot](dialogflow2.png)
+
+
+![Screenshot](speechexamples.png)
 
 ![Screenshot](speechexamples.png)
 
 ![Screenshot](simulator.png)
 
-![Screenshot](timecomparison.png)
+
 
 ## High Level diagram
 
