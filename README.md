@@ -41,7 +41,7 @@ In this example we create two follow-up intentes directly from Dialogflow consol
 
 Find some screenshots in the [appendix](#appendix:-dialogflow-screenshots)
 
-We use context to carry information from consecutive interactions:
+We use context to carry information between consecutive interactions:
 
 ![Screenshot](contextdiagram.png)
 
