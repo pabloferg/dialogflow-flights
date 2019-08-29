@@ -5,6 +5,7 @@
 ## Content
 - [Overview](#overview)
 - [Destination images and similar destinations Suggestion Chips](#appendix-destination-images-and-similar-destinations-suggestion-chips)
+- [Dialogflow setup](dialogflow-setup)
 
 
 ## Overview
@@ -19,48 +20,47 @@ This way of getting travel inspiration has many benefits in terms of **accessibi
 
 For the sake of simplicity, at the moment it only works for routes operated by British Airways from Heathrow Airport and for one passenger. Changing this is as easy as modify some values in the API call.
 
-## Dialogflow setup
-
-First, make sure you understand the basics of Dialogflow: you can start [here](https://dialogflow.com/docs/getting-started).
-
-Make sure you enable Webhook calls for the Intent.
-
-![Screenshot](dialogflowparameters.png)
-![Screenshot](dialogflow1.png)
-![Screenshot](dialogflow2.png)
-
-
-![Screenshot](speechexamples.png)
+Some examples:
 
 ![Screenshot](speechexamples.png)
 
 ![Screenshot](simulator.png)
 
+## Dialogflow setup
+(Pending)
+
+First, make sure you understand the basics of Dialogflow: you can start [here](https://cloud.google.com/dialogflow/docs/).
+
+Make sure you enable Webhook calls for the Intent.
+
+Find some screenshots in the [appendix](#appendix-2:-Dialogflow-screenshots)
+
+We use context to carry information from consecutive interactions:
+
+![Screenshot](contextdiagram.png)
 
 
 ## High Level diagram
+(Pending)
 
 ![Screenshot](mainflow.png)
 
-I create the script localy and then deploy it using the terminal command `gcloud functions deploy <folder>`
+
+I create the script localy and then [deploy](https://cloud.google.com/functions/docs/deploying/filesystem) it using the terminal command `gcloud functions deploy <folder>`
 
 
-There are two pieces of code for the Cloud Function:
+There are files:
 - [index.js ](index.js)
 - [package.json](package.json)
 
 Make sure you enable webhook calls for your Intent.
 
-You can find the full code in [index_dialogflow.js](index_dialogflow.js).
+## `index.js` description
 
-Let's break down the code. We can reuse most of the code given by Dialogflow (thanks!). In the first section, we will just add the `const axios =...` to use the package:
+You can find the full code in [index.js](index.js).
 
+![Screenshot](flow.png)
 
-![Screenshot](contextdiagram.png)
-
-
-
-## Code
 
 ```javascript
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
@@ -641,7 +641,7 @@ exports.flights = functions.https.onRequest((request,response) =>{
 
 
 
-## Appendix: Destination images and similar destinations Suggestion Chips
+## Appendix 1: Destination images and similar destinations Suggestion Chips
 
 The main database we will use is stored in Firestore. We will load a [reference table](/aIrport_codes_200.csv) for 200 destinations, containing.
 
@@ -690,5 +690,11 @@ def imageDestinations(url):
     soup = BeautifulSoup(response.text, "html.parser")
     image_url = "https://nomadlist.com" + soup.findAll("img", {"class": "bg-modal"})[0]['src']
     return image_url
-    
+
 ```
+
+## Appendix 2: Dialogflow screenshots
+
+![Screenshot](dialogflowparameters.png)
+![Screenshot](dialogflow1.png)
+![Screenshot](dialogflow2.png)
