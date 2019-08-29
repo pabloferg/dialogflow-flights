@@ -12,7 +12,7 @@
 
 ## Overview
 
-The aim of this project is to get User's **queries about flight fares to destinations** using Google Assistant, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the user. 
+The aim of this project is to get User's **queries about how much is a flight to a destination** using Google Assistant, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the user. 
 
 The User can interact with the assistant via **voice**,**keyboard** or **touching** the device screen.
 
