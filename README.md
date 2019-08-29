@@ -100,7 +100,10 @@ We define some helper functions before the main one:
 #### Welcome and Fallback functions.
 
 Welcome Intent: triggered when the user starts the conversation.
-Fallback Intent: triggered when the Agent can't match the query with any Intent.In both cases, we want the user to get some [Suggestion Chips](https://developers.google.com/actions/assistant/responses) to give some inspiration.
+
+Fallback Intent: triggered when the Agent can't match the query with any Intent
+
+In both cases, we want the user to get some [Suggestion Chips](https://developers.google.com/actions/assistant/responses) to give some inspiration.
 
 ```javascript
 function welcome(agent) {
