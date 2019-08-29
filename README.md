@@ -102,7 +102,7 @@ Let's break down the code. We can reuse most of the code given by Dialogflow (th
 
 ## Code
 
-```
+```javascript
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const functions = require('firebase-functions');
 // The Firebase Admin SDK to access the Firebase Realtime Database.
@@ -135,3 +135,81 @@ function fallback(agent) {
 ```
 
 
+### Amadeus API
+
+The Amadeus API has a standard POST/GET interaction, you can read more about it [here](https://developers.amadeus.com/self-service/category/air/api-doc/flight-low-fare-search/api-reference).
+
+First, using a `POST` request we get the `access_token`. Then, with a `GET` request we ask for the json file containing flights and fares. 
+
+```json
+{"origin":"LHR",
+ "destination": airport_code,
+ "departureDate":"2019-07-01",
+ "adults":"1",
+ "includeAirlines":"BA",
+ "nonStop":"false",
+ "max":"1"}
+```
+ 
+
+```javascript
+// Amadeus Authentication
+function post_Amadeus_Auth_Object() {
+    // https://developers.amadeus.com/self-service/category/air/api-doc/flight-low-fare-search
+    var request = require("request");
+    return new Promise(resolve => {
+        var options = { method: 'POST',
+            url: 'https://test.api.amadeus.com/v1/security/oauth2/token',
+            headers:
+                { 'Postman-Token': 'e91ea306-3b1d-4408-9321-ec2f6af5f59e',
+                    'cache-control': 'no-cache',
+                    'Content-Type': 'application/x-www-form-urlencoded' },
+            form:
+                { grant_type: 'client_credentials',
+                    client_id: 'gHea0Lv9FKuZmoDAsKblP4KmU3YcLGu6',
+                    client_secret: 'M6cweU8QmCb7XhNR' } };
+
+        request(options, function (error, response, body) {
+            if(!error)
+                resolve(JSON.parse(body));
+        })
+    }).then(value => {
+        return value;
+    }).catch(err => {
+        console.log(`Error: ${err}`);
+    });
+}
+```
+
+Here you can see an example of [Amadeus API response](#amadeus-response-example)
+
+```javascript
+// Amadeus GET API call
+function get_Amadeus_Response(access_token, payload_dict) {
+    // Returns a json file from Amadeus API https://developers.amadeus.com/self-service/category/air/api-doc/flight-low-fare-search:
+    // Inputs:
+    //     access_token: string -> from post_Amadeus_Auth_Object()
+    //     payload_dict: dict   -> from payload()
+
+
+    var request = require("request");
+    return new Promise(resolve => {
+        var options = { method: 'GET',
+            url: 'https://test.api.amadeus.com/v1/shopping/flight-offers',
+            qs: payload_dict,
+            headers:
+                { 'Postman-Token': '9b82711b-6844-43fd-a000-f49cd4549d5d',
+                    'cache-control': 'no-cache',
+                    Authorization: 'Bearer ' + access_token } };
+
+        request(options, function (error, response, body) {
+            if(!error)
+                resolve(JSON.parse(body));
+        })
+    }).then(value => {
+        return value;
+    }).catch(err => {                                    //new line
+        return console.log(`Error connecting to Amadeus: ${err}`);        //new line
+    })
+}
+```
