@@ -14,7 +14,7 @@
 
 The aim of this project is to get User's **queries about how much is a flight to a destination** using Google Assistant, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the User. 
 
-The User can interact with the assistant via **voice**,**keyboard** or **touching** the device screen.
+The User can interact with the assistant via **voice**, **keyboard** or **touching** the device screen.
 
 This way of getting travel inspiration has many benefits in terms of **accessibility** compared to traditional booking tools offered by the airlines websites. In addition, this new channel is much faster.
 
