@@ -44,8 +44,8 @@ function post_Amadeus_Auth_Object() {
                     'Content-Type': 'application/x-www-form-urlencoded' },
             form:
                 { grant_type: 'client_credentials',
-                    client_id: 'gHea0Lv9FKuZmoDAsKblP4KmU3YcLGu6',
-                    client_secret: 'M6cweU8QmCb7XhNR' } };
+                    client_id: 'XXXXXXXXXXXXXXX',
+                    client_secret: 'XXXXXXXXXXXXXXX' } };
 
         request(options, function (error, response, body) {
             if(!error)
