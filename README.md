@@ -1,4 +1,5 @@
 # Voice Flight Searcher: Dialogflow + Google Cloud + Amadeus API
+![Screenshot](inspiration.png)
 
 ## Content
 
