@@ -3,8 +3,8 @@
 ![Screenshot](inspiration.png)
 
 ## Content
-
-- [Destination images and similar destinations Suggestion Chips](#appendix:-destination-images-and-similar-destinations-suggestion-chips)
+- [Overview](#overview)
+- [Destination images and similar destinations Suggestion Chips](#appendix-destination-images-and-similar-destinations-suggestion-chips)
 
 
 The aim of this project is to get User's **queries about flight fares to destinations** using Dialogflow, to **get the lowest fare** from [Amadeus](https://amadeus.com/en/industries/airlines), and **reply back** to the user. 
