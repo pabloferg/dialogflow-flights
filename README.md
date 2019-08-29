@@ -35,7 +35,9 @@ Some examples:
 
 First, make sure you understand the basics of Dialogflow: you can start [here](https://cloud.google.com/dialogflow/docs/).
 
-Make sure you enable Webhook calls for the Intent. In this example we create two follow-up intentes directly from Dialogflow console (not fulfullment) that simulate the User asking *'Hey, email me this info'* or *'Please book me in this flight'*.
+Make sure you enable Webhook calls for the Intent.
+
+In this example we create two follow-up intentes directly from Dialogflow console (not fulfullment) that simulate the User asking *'Hey, email me this info'* or *'Please book me in this flight'*.
 
 Find some screenshots in the [appendix](#appendix:-dialogflow-screenshots)
 
@@ -49,15 +51,12 @@ We use context to carry information from consecutive interactions:
 
 ![Screenshot](mainflow.png)
 
+I develop the script localy on my machine and then [deploy](https://cloud.google.com/functions/docs/deploying/filesystem) it using the terminal command `gcloud functions deploy <folder>`
 
-I create the script localy and then [deploy](https://cloud.google.com/functions/docs/deploying/filesystem) it using the terminal command `gcloud functions deploy <folder>`
-
-
-There are files:
+There are two files:
 - [index.js ](index.js)
 - [package.json](package.json)
 
-Make sure you enable webhook calls for your Intent.
 
 ## `index.js` description
 
