@@ -27,7 +27,7 @@ For the sake of simplicity, at the moment this code only works for routes operat
 Next Steps:
 - Improve code, especially the way I handle dates. 
 - Add more inspiration capabilities: i.e. *'I want to fly to a sunny place in December'*
-- Allow more inputs from the User: *'Flights to Madrid for 2 people and 1 infant in Business'*
+- Allow more inputs from the User: *'Flights to Madrid for 2 adults and 1 infant in Business'*
 - Use context not only carrying dates and inputing a new destination, but viceversa: i.e User: *'Fly me to Ibiza next weekend'*, (agent response), *'And for the last weekend of November?'*
 - Add some Analytics capabilities that would allow the Airline to monitor the number of users, which are the popular destination, which travel periods, etc. We'd need some kind of [counter](https://firebase.google.com/docs/firestore/solutions/counters)?
 - Create some automated testing, I've never done this.
