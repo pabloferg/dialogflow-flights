@@ -18,7 +18,7 @@ The User can interact with the assistant via **voice**, **keyboard** or **touchi
 
 This way of getting travel inspiration has many benefits in terms of **accessibility** compared to traditional booking tools offered by the airlines websites. In addition, this new channel is much faster.
 
-![Screenshot](timecomparison.png)
+![Screenshot](comparison.png)
 
 Thanks to Dialogflow, this application could work as well in **other languages**. We would just need to provide more training sentences, and then translate some parameters using Google Translation API (i.e A Spanish user says: *Quiero volar a París en Diciembre durante dos días*, the agent would pick `destination=París` and `duration=días`, we would need to translate to `Paris` and `days` (or change the code). But we don't have to worry about `Diciembre` because Dialogflow will get the `period` correctly with same format `YYYY-MM-DDTHH:MM:SS+00:00` as in English.
 
