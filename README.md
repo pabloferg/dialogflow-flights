@@ -742,5 +742,4 @@ for index, row in df.iterrows():
 ## Appendix: Dialogflow screenshots
 
 ![Screenshot](dialogflowparameters.png)
-![Screenshot](dialogflow1.png)
-![Screenshot](dialogflow2.png)
+![Screenshot](trainingphrases.png)
