@@ -5,7 +5,7 @@
 ## Content
 - [Overview](#overview)
 - [Dialogflow setup](#dialogflow-setup)
-- [High Level diagram](#high-level-diagram)
+- [Architecture](#architecturem)
 - [Code description](#code-description)
 - [Appendix: Destination images and similar destinations Suggestion Chips](#appendix-destination-images-and-similar-destinations-suggestion-chips)
 
@@ -54,7 +54,7 @@ We use context to carry information between consecutive interactions:
 ![Screenshot](contextdiagram.png)
 
 
-## High Level diagram
+## Architecture
 (Pending)
 
 ![Screenshot](highflow.png)
