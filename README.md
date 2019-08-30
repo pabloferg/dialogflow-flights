@@ -34,7 +34,7 @@ Next Steps:
 
 Some examples:
 
-![Screenshot](speechexamples.png)
+![Screenshot](speeches.png)
 
 ![Screenshot](simulator.png)
 
