@@ -28,7 +28,7 @@ Next Steps:
 - Improve code, especially the way I handle dates. 
 - Add more inspiration capabilities: i.e. *'I want to fly to a sunny place in December'*
 - Allow more inputs from the User: *'Flights to Madrid for 2 adults and 1 infant in Business'*
-- Use context not only carrying dates and inputing a new destination, but viceversa: i.e User: *'Fly me to Ibiza next weekend'*, (agent response), *'And for the last weekend of November?'*
+- Use context not only carrying dates and inputing a new destination, but viceversa: i.e User: *'I want to fly to Ibiza next weekend'*, (agent response), *'And for the last weekend of November?'*
 - Add some Analytics capabilities that would allow the Airline to monitor the number of users, which are the popular destinations, which travel periods, etc. We'd need some kind of [counter](https://firebase.google.com/docs/firestore/solutions/counters)?
 - Create some automated testing, I've never done this.
 
@@ -384,9 +384,9 @@ exports.flights = functions.https.onRequest((request,response) =>{
 
                 destination   = agent.parameters.destination
                 date          = agent.parameters.suggestion_date            // string: YYYY-MM-DDTHH:MM:SS+00:00
-                period        = agent.parameters.suggestion_period          // object: { "endDate": "YYYY-MM-DDTHH:MM:SS+00:00", "startDate": "YYYY-MM-DDTHH:MM:SS+00:00" } i.e. Fly me in September
+                period        = agent.parameters.suggestion_period          // object: { "endDate": "YYYY-MM-DDTHH:MM:SS+00:00", "startDate": "YYYY-MM-DDTHH:MM:SS+00:00" } i.e. I want to fly to Miami in September
                 duration      = agent.parameters.suggestion_duration        // object: { "amount": <number>, "unit": <string> }
-                period_fromto = agent.parameters.suggestion_period_fromto   // object: { "endDate": "YYYY-MM-DDTHH:MM:SS+00:00", "startDate": "YYYY-MM-DDTHH:MM:SS+00:00" } i.e. Fly me from the 3rd September to 9th September
+                period_fromto = agent.parameters.suggestion_period_fromto   // object: { "endDate": "YYYY-MM-DDTHH:MM:SS+00:00", "startDate": "YYYY-MM-DDTHH:MM:SS+00:00" } i.e. I want to fly to Miami from the 3rd September to 9th September
 
                 agent.context.set({
                     'name':'preserveParameters',
@@ -400,7 +400,7 @@ exports.flights = functions.https.onRequest((request,response) =>{
                 });
 
 
-            } else { // Long Speech: occurs when user asks something like: 'Fly me to Miami', 'I want to go to Miami', 'How much is a flight to Miami'
+            } else { // Long Speech: occurs when user asks something like: 'I want to fly to Miami', 'I want to go to Miami', 'How much is a flight to Miami'
                 agent.context.set({
                     'name':'preserveParameters',
                     'lifespan': 1,
@@ -415,9 +415,9 @@ exports.flights = functions.https.onRequest((request,response) =>{
                 // Parameters from Dialogflow agent
                 destination   = agent.parameters.destination     // it is set up in Dialogflow as 'required' - it doesn't mean that the destination is in the Airport code database or that Amadeus will recognise it
                 date          = agent.parameters.date            // string: YYYY-MM-DDTHH:MM:SS+00:00
-                period        = agent.parameters.period          // object: { "endDate": "YYYY-MM-DDTHH:MM:SS+00:00", "startDate": "YYYY-MM-DDTHH:MM:SS+00:00" } i.e. Fly me in September
+                period        = agent.parameters.period          // object: { "endDate": "YYYY-MM-DDTHH:MM:SS+00:00", "startDate": "YYYY-MM-DDTHH:MM:SS+00:00" } i.e. I want to fly to Miami in September
                 duration      = agent.parameters.duration        // object: { "amount": <number>, "unit": <string> }
-                period_fromto = agent.parameters.period_fromto   // object: { "endDate": "YYYY-MM-DDTHH:MM:SS+00:00", "startDate": "YYYY-MM-DDTHH:MM:SS+00:00" } i.e. Fly me from the 3rd September to 9th September
+                period_fromto = agent.parameters.period_fromto   // object: { "endDate": "YYYY-MM-DDTHH:MM:SS+00:00", "startDate": "YYYY-MM-DDTHH:MM:SS+00:00" } i.e. I want to fly to Miami from the 3rd September to 9th September
 
             }
 
@@ -445,30 +445,30 @@ exports.flights = functions.https.onRequest((request,response) =>{
             let dateTo = new Date();   // value assigned later
 
             // days_future = number of days added to 'today' if the User does not specify departure and/or return dates.
-            // i.e User: 'Fly me to Madrid' ---> today = 2019-08-25, days_future = 3 , then: departureDate = today + days_future = 2019-08-28
+            // i.e User: 'I want to fly to Madrid' ---> today = 2019-08-25, days_future = 3 , then: departureDate = today + days_future = 2019-08-28
             let days_future = 3;
 
             // length_stay = number of days added to departureDate if the User does not specify return date. *This version only accepts return itineraries.
-            // i.e User: 'Fly me to Madrid the 1st September' ---> departureDate = 2019-09-01, length_stay = 7,  then: returnDate = departureDate + length_stay = 2019-09-07
+            // i.e User: 'I want to fly to Madrid the 1st September' ---> departureDate = 2019-09-01, length_stay = 7,  then: returnDate = departureDate + length_stay = 2019-09-07
             let length_stay = 10;
 
-            // If Users specifies duration, i.e. 'Fly me to Miami for one week', length_stay is updated from default to = 7 (days)
+            // If Users specifies duration, i.e. 'I want to fly to Madrid for one week', length_stay is updated from default to = 7 (days)
             // duration is and Object from Dialogflow.
             if (duration) length_stay = durationHandler(duration)
 
 
             /*  2. Processing User input: the are several ways the User can ask for a flight fare:
 
-            1. Fly me to Madrid                                         -> destination
-            2. Fly me to Madrid the 5th of august                       -> destination + date
-            3. Fly me to Madrid from the 6th July to the 16th August    -> destination + period_fromto
-            4. Fly me to Madrid in September                            -> destination + period
-            5. Fly me to Madrid (date or period) for 4 days             -> destination + OR(date,period) + duration , in this case, we change length_stay variable
+            1. I want to fly to Madrid                                         -> destination
+            2. I want to fly to Madrid the 5th of august                       -> destination + date
+            3. I want to fly to Madrid from the 6th July to the 16th August    -> destination + period_fromto
+            4. I want to fly to Madrid in September                            -> destination + period
+            5. I want to fly to Madrid (date or period) for 4 days             -> destination + OR(date,period) + duration , in this case, we change length_stay variable
 
             Thanks to Dialogflow, the assistant will convert more complex sentences into dates or periods:
-            - Fly me to Madrid tomorrow.  (it will create agent.parameters.date depending on today)
-            - Fly me to Madrid next weekend. (t will create agent.parameters.period depending on today)
-            - Fly me to Madrid the last weekend of November.
+            - I want to fly to Madrid tomorrow.  (it will create agent.parameters.date depending on today)
+            - I want to fly to Madrid next weekend. (t will create agent.parameters.period depending on today)
+            - I want to fly to Madrid the last weekend of November.
 
             Not yet:
             - How much is a flight to Madrid with departure on 4th august and return the 9th september
@@ -476,7 +476,7 @@ exports.flights = functions.https.onRequest((request,response) =>{
             */
 
 
-            // 1. User: 'Fly me to Madrid'
+            // 1. User: 'I want to fly to Madrid'
             if (destination  && !date && !period && !period_fromto) {
 
                 //agent.add(`Fly to ${destination}`);
@@ -498,7 +498,7 @@ exports.flights = functions.https.onRequest((request,response) =>{
 
             }
 
-            // 2. 'Fly me to Madrid the 5th of august'
+            // 2. 'I want to fly to Madrid the 5th of august'
             else if (destination  && date && !period && !period_fromto) {
 
 
@@ -510,13 +510,13 @@ exports.flights = functions.https.onRequest((request,response) =>{
                 returnDate    = dateTo.toISOString().substr(0, 10);
 
 
-                // 3. Fly me to Madrid from the 6th July to the 16th
+                // 3. I want to fly to Madrid from the 6th July to the 16th
             } else if (destination  && !date && !period && period_fromto) {
                 departureDate = period_fromto.startDate.split("T")[0]
                 returnDate   = period_fromto.endDate.split("T")[0]
 
 
-                // 4. Fly me to Madrid in September
+                // 4. I want to fly to Madrid in September
             } else if (destination  && !date && period && !period_fromto) {
 
                 // period:          Dialogflow object: { startDate: "YYYY-MM-DDTHH:MM:SSZ", endDate: "2019-09-30T23:59:59Z" } (Z = Zulu time, +00:00)
@@ -525,7 +525,7 @@ exports.flights = functions.https.onRequest((request,response) =>{
                 let startDatePeriod = new Date(period.startDate.substr(0, 10)) // If you input the whole string into Date(), it returns the day before. Just giving the YYYY-MM-DD works.  This is a workaround
                 let endDatePeriod = new Date(period.endDate.substr(0, 10))
 
-                if (startDatePeriod > today) { // If today is 3rd September, and user says 'Fly me to Miami in October'
+                if (startDatePeriod > today) { // If today is 3rd September, and user says 'I want to fly to Miami in October'
 
                     //dateFrom = startDatePeriod
 
@@ -541,10 +541,10 @@ exports.flights = functions.https.onRequest((request,response) =>{
 
 
 
-                } else { // If today is 3rd September, and user says 'Fly me to Miami in September'
+                } else { // If today is 3rd September, and user says 'I want to fly to Miami in September'
 
                     // set dateFrom (departure) at the middle of the period [today, end of period]
-                    // i.e today is 2019-08-20, User says: 'Fly me to X in August', dateFrom = 2019-08-20 + (10 days till end of period divided by 2) = 2019-08-25
+                    // i.e today is 2019-08-20, User says: 'I want to fly to X in August', dateFrom = 2019-08-20 + (10 days till end of period divided by 2) = 2019-08-25
 
                     dateFrom.setDate(today.getDate() + (Math.abs( endDatePeriod.getDate() - today.getDate())/2))
 
