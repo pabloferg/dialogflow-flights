@@ -30,6 +30,7 @@ Next Steps:
 - Allow more inputs from the User: *'Flights to Madrid for 2 adults and 1 infant in Business'*
 - Use context not only carrying dates and inputing a new destination, but viceversa: i.e User: *'I want to fly to Ibiza next weekend'*, (agent response), *'And for the last weekend of November?'*
 - Add some Analytics capabilities that would allow the Airline to monitor the number of users, which are the popular destinations, which travel periods, etc. We'd need some kind of [counter](https://firebase.google.com/docs/firestore/solutions/counters)?
+- Add schedule information? 'It departs at 17:30', or 'There's daily flights to Miami', or 'You can only fly to Seville wednesdays and fridays during winter' (? not priority)
 - Create some automated testing, I've never done this.
 
 Some examples:
