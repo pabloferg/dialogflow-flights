@@ -39,7 +39,7 @@ function post_Amadeus_Auth_Object() {
         var options = { method: 'POST',
             url: 'https://test.api.amadeus.com/v1/security/oauth2/token',
             headers:
-                { 'Postman-Token': 'e91ea306-3b1d-4408-9321-ec2f6af5f59e',
+                { 'Postman-Token': 'XXXXXXXX',
                     'cache-control': 'no-cache',
                     'Content-Type': 'application/x-www-form-urlencoded' },
             form:
