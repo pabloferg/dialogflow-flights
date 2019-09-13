@@ -1,4 +1,4 @@
-# Flight Fare Finder - Google Assistant
+# Flight Finder - Google Assistant
 
 ![Screenshot](/assets/images/NEWscreenshots.png)
 
