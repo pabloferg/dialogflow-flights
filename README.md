@@ -38,9 +38,8 @@ Next Steps:
 
 Some examples:
 
-![Screenshot](speeches.png)
+![Screenshot](/assets/images/NEWspeech.png)
 
-![Screenshot](simulator.png)
 
 ## Dialogflow setup
 (Pending)
@@ -55,13 +54,13 @@ Find some screenshots in the [appendix](#appendix:-dialogflow-screenshots)
 
 We use context to carry information between consecutive interactions:
 
-![Screenshot](contextdiagram.png)
+![Screenshot](/assets/images/contextdiagram.png)
 
 
 ## Architecture
 (Pending)
 
-![Screenshot](highflow.png)
+![Screenshot](/assets/images/NEWflow.png)
 
 I develop the script localy on my machine and then [deploy](https://cloud.google.com/functions/docs/deploying/filesystem) it using the terminal command `gcloud functions deploy <folder>`
 
