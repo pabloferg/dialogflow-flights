@@ -2,7 +2,7 @@
 
 Hi! Thanks for coming :) I'm cleaning the code after some great feedback from a Senior Developer. You'll publish the code soon.
 
-![Screenshot](/assets/images/NEWscreenshot.png)
+![Screenshot](/assets/images/NEWscreenshots.png)
 
 ## Content
 - [Overview](#overview)
