@@ -1,4 +1,4 @@
-# Flight Finder - Google Assistant
+# Work In Progress - Pending publish code sorry :( 
 
 ![Screenshot](/assets/images/NEWscreenshots.png)
 
