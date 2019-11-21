@@ -1,4 +1,4 @@
-# Work In Progress - Pending publish code sorry :( 
+# Cleaning code after a googler suggested some changes - I'll publish the code soon sorry :( 
 
 ![Screenshot](/assets/images/NEWscreenshots.png)
 
